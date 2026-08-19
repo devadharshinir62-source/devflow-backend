@@ -11,9 +11,13 @@ public class OpenAPIConfig {
     @Bean
     public OpenAPI devFlowOpenAPI() {
         return new OpenAPI()
-                .info(new Info()
-                        .title("DevFlow Task Management API")
-                        .description("REST API for managing tasks in the DevFlow application")
-                        .version("1.0.0"));
+                .info(
+                        new Info()
+                                .title("DevFlow Task Management API")
+                                .description(
+                                        "REST API for managing tasks in the DevFlow application"
+                                )
+                                .version("1.0.0")
+                );
     }
 }

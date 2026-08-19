@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.devflow.devflow.TaskNotFoundException;
-import com.devflow.devflow.entity.Task;
 import com.devflow.devflow.TaskStatistics;
+import com.devflow.devflow.entity.Task;
 import com.devflow.devflow.repository.TaskRepository;
 
 @Service
@@ -18,45 +18,35 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    // =========================
     // CREATE TASK
-    // =========================
-
     public Task createTask(Task task) {
         return taskRepository.save(task);
     }
 
-    // =========================
     // GET ALL TASKS
-    // =========================
-
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
 
-    // =========================
     // GET TASK BY ID
-    // =========================
-
     public Task getTaskById(Long id) {
         return taskRepository.findById(id)
                 .orElseThrow(() ->
                         new TaskNotFoundException(
                                 "Task not found with id: " + id
-                        ));
+                        )
+                );
     }
 
-    // =========================
     // UPDATE TASK
-    // =========================
-
     public Task updateTask(Long id, Task updatedTask) {
 
         Task existingTask = taskRepository.findById(id)
                 .orElseThrow(() ->
                         new TaskNotFoundException(
                                 "Task not found with id: " + id
-                        ));
+                        )
+                );
 
         existingTask.setTitle(updatedTask.getTitle());
         existingTask.setDescription(updatedTask.getDescription());
@@ -67,10 +57,7 @@ public class TaskService {
         return taskRepository.save(existingTask);
     }
 
-    // =========================
     // DELETE TASK
-    // =========================
-
     public void deleteTask(Long id) {
 
         if (!taskRepository.existsById(id)) {
@@ -82,38 +69,35 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
-    // =========================
     // TASK STATISTICS
-    // =========================
-
     public TaskStatistics getStatistics() {
 
         List<Task> tasks = taskRepository.findAll();
 
-        int totalTasks = tasks.size();
+        long totalTasks = tasks.size();
 
-        int todoTasks = (int) tasks.stream()
-                .filter(task -> "TODO".equals(task.getStatus()))
+        long todoTasks = tasks.stream()
+                .filter(task -> "TODO".equalsIgnoreCase(task.getStatus()))
                 .count();
 
-        int inProgressTasks = (int) tasks.stream()
-                .filter(task -> "IN_PROGRESS".equals(task.getStatus()))
+        long inProgressTasks = tasks.stream()
+                .filter(task -> "IN_PROGRESS".equalsIgnoreCase(task.getStatus()))
                 .count();
 
-        int completedTasks = (int) tasks.stream()
-                .filter(task -> "COMPLETED".equals(task.getStatus()))
+        long completedTasks = tasks.stream()
+                .filter(task -> "COMPLETED".equalsIgnoreCase(task.getStatus()))
                 .count();
 
-        int highPriorityTasks = (int) tasks.stream()
-                .filter(task -> "HIGH".equals(task.getPriority()))
+        long highPriorityTasks = tasks.stream()
+                .filter(task -> "HIGH".equalsIgnoreCase(task.getPriority()))
                 .count();
 
-        int mediumPriorityTasks = (int) tasks.stream()
-                .filter(task -> "MEDIUM".equals(task.getPriority()))
+        long mediumPriorityTasks = tasks.stream()
+                .filter(task -> "MEDIUM".equalsIgnoreCase(task.getPriority()))
                 .count();
 
-        int lowPriorityTasks = (int) tasks.stream()
-                .filter(task -> "LOW".equals(task.getPriority()))
+        long lowPriorityTasks = tasks.stream()
+                .filter(task -> "LOW".equalsIgnoreCase(task.getPriority()))
                 .count();
 
         return new TaskStatistics(

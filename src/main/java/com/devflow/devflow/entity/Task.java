@@ -8,7 +8,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 
@@ -49,9 +52,13 @@ public class Task {
     }
 
     // Constructor
-    public Task(String title, String description, String status,
-                String priority, LocalDate dueDate) {
-
+    public Task(
+            String title,
+            String description,
+            String status,
+            String priority,
+            LocalDate dueDate
+    ) {
         this.title = title;
         this.description = description;
         this.status = status;
@@ -59,85 +66,79 @@ public class Task {
         this.dueDate = dueDate;
     }
 
-    // Automatically set creation time
-    @jakarta.persistence.PrePersist
+    // Set creation and update time
+    @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
 
-    // Automatically update modification time
-    @jakarta.persistence.PreUpdate
+    // Update modification time
+    @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
 
-    // Get ID
+    // ID
     public Long getId() {
         return id;
     }
 
-    // Set ID
     public void setId(Long id) {
         this.id = id;
     }
 
-    // Get Title
+    // Title
     public String getTitle() {
         return title;
     }
 
-    // Set Title
     public void setTitle(String title) {
         this.title = title;
     }
 
-    // Get Description
+    // Description
     public String getDescription() {
         return description;
     }
 
-    // Set Description
     public void setDescription(String description) {
         this.description = description;
     }
 
-    // Get Status
+    // Status
     public String getStatus() {
         return status;
     }
 
-    // Set Status
     public void setStatus(String status) {
         this.status = status;
     }
 
-    // Get Priority
+    // Priority
     public String getPriority() {
         return priority;
     }
 
-    // Set Priority
     public void setPriority(String priority) {
         this.priority = priority;
     }
 
-    // Get Due Date
+    // Due date
     public LocalDate getDueDate() {
         return dueDate;
     }
 
-    // Set Due Date
     public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
-    // Get Created At
+    // Created at
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    // Get Updated At
+    // Updated at
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }

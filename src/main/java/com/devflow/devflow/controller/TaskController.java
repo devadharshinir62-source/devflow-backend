@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.devflow.devflow.entity.Task;
 import com.devflow.devflow.TaskStatistics;
+import com.devflow.devflow.entity.Task;
 import com.devflow.devflow.service.TaskService;
 
 import jakarta.validation.Valid;
@@ -30,30 +30,23 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    // =========================
     // GET ALL TASKS
-    // =========================
-
     @GetMapping
-    public List<Task> getAllTasks() {
-        return taskService.getAllTasks();
+    public ResponseEntity<List<Task>> getAllTasks() {
+        return ResponseEntity.ok(taskService.getAllTasks());
     }
 
-    // =========================
     // GET TASK BY ID
-    // =========================
-
     @GetMapping("/{id}")
-    public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
+    public ResponseEntity<Task> getTaskById(
+            @PathVariable Long id) {
+
         return ResponseEntity.ok(
                 taskService.getTaskById(id)
         );
     }
 
-    // =========================
     // GET TASK STATISTICS
-    // =========================
-
     @GetMapping("/statistics")
     public ResponseEntity<TaskStatistics> getStatistics() {
 
@@ -62,10 +55,7 @@ public class TaskController {
         );
     }
 
-    // =========================
     // CREATE TASK
-    // =========================
-
     @PostMapping
     public ResponseEntity<Task> createTask(
             @Valid @RequestBody Task task) {
@@ -75,10 +65,7 @@ public class TaskController {
         );
     }
 
-    // =========================
     // UPDATE TASK
-    // =========================
-
     @PutMapping("/{id}")
     public ResponseEntity<Task> updateTask(
             @PathVariable Long id,
@@ -89,10 +76,7 @@ public class TaskController {
         );
     }
 
-    // =========================
     // DELETE TASK
-    // =========================
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTask(
             @PathVariable Long id) {

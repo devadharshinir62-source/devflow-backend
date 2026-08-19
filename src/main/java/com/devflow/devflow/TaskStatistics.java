@@ -14,19 +14,19 @@ public class TaskStatistics {
     public TaskStatistics() {
     }
 
-    public TaskStatistics(long totalTasks,
-                          long todoTasks,
-                          long inProgressTasks,
-                          long completedTasks,
-                          long highPriorityTasks,
-                          long mediumPriorityTasks,
-                          long lowPriorityTasks) {
-
+    public TaskStatistics(
+            long totalTasks,
+            long todoTasks,
+            long inProgressTasks,
+            long completedTasks,
+            long highPriorityTasks,
+            long mediumPriorityTasks,
+            long lowPriorityTasks
+    ) {
         this.totalTasks = totalTasks;
         this.todoTasks = todoTasks;
         this.inProgressTasks = inProgressTasks;
         this.completedTasks = completedTasks;
-
         this.highPriorityTasks = highPriorityTasks;
         this.mediumPriorityTasks = mediumPriorityTasks;
         this.lowPriorityTasks = lowPriorityTasks;
