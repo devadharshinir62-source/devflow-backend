@@ -6,3 +6,4 @@ target/
 .springBeans
 .sts4-cache/
 *.log
+application.properties

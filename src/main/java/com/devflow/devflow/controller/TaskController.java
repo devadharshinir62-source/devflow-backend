@@ -21,7 +21,11 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/tasks")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(
+    origins = {
+        "https://devflow-frontend-a63thw8rc-devadharshini-r.vercel.app"
+    }
+)
 public class TaskController {
 
     private final TaskService taskService;
@@ -30,13 +34,11 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    // GET ALL TASKS
     @GetMapping
     public ResponseEntity<List<Task>> getAllTasks() {
         return ResponseEntity.ok(taskService.getAllTasks());
     }
 
-    // GET TASK BY ID
     @GetMapping("/{id}")
     public ResponseEntity<Task> getTaskById(
             @PathVariable Long id) {
@@ -46,16 +48,13 @@ public class TaskController {
         );
     }
 
-    // GET TASK STATISTICS
     @GetMapping("/statistics")
     public ResponseEntity<TaskStatistics> getStatistics() {
-
         return ResponseEntity.ok(
                 taskService.getStatistics()
         );
     }
 
-    // CREATE TASK
     @PostMapping
     public ResponseEntity<Task> createTask(
             @Valid @RequestBody Task task) {
@@ -65,7 +64,6 @@ public class TaskController {
         );
     }
 
-    // UPDATE TASK
     @PutMapping("/{id}")
     public ResponseEntity<Task> updateTask(
             @PathVariable Long id,
@@ -76,7 +74,6 @@ public class TaskController {
         );
     }
 
-    // DELETE TASK
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTask(
             @PathVariable Long id) {
